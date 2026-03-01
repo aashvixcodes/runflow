@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Components - ObsidianUI Red Mix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <div class="island">
+
+            <header class="navbar">
+                <div class="nav-links">
+                    <a href="index.html" class="nav-item">Studio</a>
+                    <a href="exhibits.html" class="nav-item active">Exhibits</a>
+                    <div class="logo-mark">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-crimson)">
+                            <path d="M12 2L2 12l10 10 10-10L12 2z" />
+                        </svg>
+                    </div>
+                    <a href="contact.html" class="nav-item">Contact</a>
+                    <a href="#" class="nav-item">Docs</a>
+                </div>
+            </header>
+
+            <div class="hero" style="padding-bottom: 2rem;">
+                <h1 class="headline">
+                    Featured <span class="text-accent">Components</span>
+                </h1>
+                <p class="subhead">
+                    Explore our most popular components with live previews. Click any card to view details and copy the
+                    code.
+                </p>
+
+                <div class="actions">
+                    <button class="btn-primary" onclick="window.location.href='index.html'">View All in Studio</button>
+                    <div class="search-fake">
+                        <svg width="18" height="18" fill="none" class="search-icon">
+                            <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5" />
+                            <path d="M12 12L17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                        <span>Search components</span>
+                        <div class="kbd">⌘ + /</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ObsidianUI-Style Component Gallery Grid -->
+            <div class="exhibits-grid">
+
+                <!-- Flip Text -->
+                <div class="exhibit-card" onclick="window.location.href='index.html'">
+                    <div class="exhibit-preview">
+                        <div class="flip-text-wrapper">
+                            <span class="flip-word">Create.</span>
+                            <span class="flip-word">Design.</span>
+                            <span class="flip-word">Deploy.</span>
+                        </div>
+                    </div>
+                    <div class="exhibit-info">
+                        <div class="exhibit-name">Flip Text</div>
+                        <div class="exhibit-desc">3D rotating text on hover with elastic easing</div>
+                        <span class="exhibit-tag">Animation</span>
+                    </div>
+                </div>
+
+                <!-- Spotlight -->
+                <div class="exhibit-card" onclick="window.location.href='index.html'">
+                    <div class="exhibit-preview" style="cursor: crosshair;"
+                        onmousemove="const r=this.getBoundingClientRect(); this.style.setProperty('--mx',(event.clientX-r.left)+'px'); this.style.setProperty('--my',(event.clientY-r.top)+'px')">
+                        <div class="spotlight-beam" style="opacity:1;"></div>
+                        <div style="position:relative; z-index:2; text-align:center;">
+                            <div style="font-size: 2.5rem; font-weight: 900; color: white;">✦</div>
+                            <div
+                                style="font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.5); margin-top: 8px;">
+                                Hover to reveal</div>
+                        </div>
+                    </div>
+                    <div class="exhibit-info">
+                        <div class="exhibit-name">Apple Spotlight</div>
+                        <div class="exhibit-desc">Cursor-tracking radial gradient beam effect</div>
+                        <span class="exhibit-tag">Interaction</span>
+                    </div>
+                </div>
+
+                <!-- Glass Dock -->
+                <div class="exhibit-card" onclick="window.location.href='index.html'">
+                    <div class="exhibit-preview">
+                        <div class="glass-dock">
+                            <div class="dock-icon" data-label="Home">🏠</div>
+                            <div class="dock-icon" data-label="Search">🔍</div>
+                            <div class="dock-icon" data-label="Settings">⚙️</div>
+                            <div class="dock-icon" data-label="Profile">👤</div>
+                            <div class="dock-icon" data-label="Menu">☰</div>
+                        </div>
+                    </div>
+                    <div class="exhibit-info">
+                        <div class="exhibit-name">Glass Dock</div>
+                        <div class="exhibit-desc">macOS-style dock with magnification and tooltips</div>
+                        <span class="exhibit-tag">Navigation</span>
+                    </div>
+                </div>
+
+                <!-- Magnetic Button -->
+                <div class="exhibit-card" onclick="window.location.href='index.html'">
+                    <div class="exhibit-preview">
+                        <button class="magnetic-btn" style="pointer-events: none;">
+                            <span>Get Started</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="exhibit-info">
+                        <div class="exhibit-name">Magnetic Button</div>
+                        <div class="exhibit-desc">Cursor-following button with glow trail physics</div>
+                        <span class="exhibit-tag">Button</span>
+                    </div>
+                </div>
+
+                <!-- 3D Tilt Card -->
+                <div class="exhibit-card" onclick="window.location.href='index.html'">
+                    <div class="exhibit-preview">
+                        <div class="tilt-card-demo" style="pointer-events: none;">
+                            <div class="tilt-shine"></div>
+                            <div style="position:relative; z-index:2; text-align:center;">
+                                <div style="font-size: 1.5rem; font-weight: 800; color: white;">PRO</div>
+                                <div
+                                    style="font-size: 0.75rem; font-weight: 500; color: rgba(255,255,255,0.6); margin-top: 4px;">
+                                    $29/mo</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="exhibit-info">
+                        <div class="exhibit-name">3D Tilt Card</div>
+                        <div class="exhibit-desc">Perspective tilt with GSAP and crimson shine overlay</div>
+                        <span class="exhibit-tag">Card</span>
+                    </div>
+                </div>
+
+                <!-- Typewriter -->
+                <div class="exhibit-card" onclick="window.location.href='index.html'">
+                    <div class="exhibit-preview">
+                        <div class="typewriter-text">
+                            <span style="color: rgba(255,255,255,0.4); font-weight: 500;">$</span>
+                            <span id="exhibitTw"></span>
+                            <span class="tw-cursor">|</span>
+                        </div>
+                    </div>
+                    <div class="exhibit-info">
+                        <div class="exhibit-name">Typewriter</div>
+                        <div class="exhibit-desc">Terminal-style auto-typing loop with blinking cursor</div>
+                        <span class="exhibit-tag">Text Effect</span>
+                    </div>
+                </div>
+
+                <!-- Activity Ring -->
+                <div class="exhibit-card" onclick="window.location.href='index.html'">
+                    <div class="exhibit-preview">
+                        <div class="ring-container">
+                            <svg class="progress-ring" width="100" height="100">
+                                <circle stroke="rgba(225, 29, 72, 0.15)" stroke-width="6" fill="transparent" r="42"
+                                    cx="50" cy="50" />
+                                <circle stroke="#e11d48" stroke-width="6" stroke-linecap="round" fill="transparent"
+                                    r="42" cx="50" cy="50"
+                                    style="stroke-dasharray: 263.9; stroke-dashoffset: 42.2; filter: drop-shadow(0 0 10px rgba(225, 29, 72, 0.6));" />
+                            </svg>
+                            <div class="ring-value" style="font-size: 1.4rem;">84%</div>
+                        </div>
+                    </div>
+                    <div class="exhibit-info">
+                        <div class="exhibit-name">Activity Ring</div>
+                        <div class="exhibit-desc">Animated SVG progress ring with glow effect</div>
+                        <span class="exhibit-tag">Data Viz</span>
+                    </div>
+                </div>
+
+                <!-- Sonar Button -->
+                <div class="exhibit-card" onclick="window.location.href='index.html'">
+                    <div class="exhibit-preview">
+                        <button class="sonar-btn" style="pointer-events: none;">
+                            Deploy Module
+                            <span class="sonar-ripple ripple-1"
+                                style="animation: sonarPing 1.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);"></span>
+                            <span class="sonar-ripple ripple-2"
+                                style="animation: sonarPing 1.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1); animation-delay: 0.4s;"></span>
+                        </button>
+                    </div>
+                    <div class="exhibit-info">
+                        <div class="exhibit-name">Sonar Button</div>
+                        <div class="exhibit-desc">Continuous concentric ripple pulse on hover</div>
+                        <span class="exhibit-tag">Button</span>
+                    </div>
+                </div>
+
+                <!-- Cyber Badge -->
+                <div class="exhibit-card" onclick="window.location.href='index.html'">
+                    <div class="exhibit-preview">
+                        <div class="cyber-badge">
+                            <span class="pulse-dot"></span>
+                            System Active
+                        </div>
+                    </div>
+                    <div class="exhibit-info">
+                        <div class="exhibit-name">Cyber Badge</div>
+                        <div class="exhibit-desc">Neon status pill with animated pulsing dot</div>
+                        <span class="exhibit-tag">Badge</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CTA Section -->
+            <div style="text-align: center; padding: 60px 0 40px; width: 100%;">
+                <h2 style="font-size: 2.2rem; font-weight: 800; color: var(--text-main); letter-spacing: -1px;">Ship
+                    your next project<br><span class="text-accent">faster than ever.</span></h2>
+                <p
+                    style="color: var(--text-muted); font-size: 1rem; margin-top: 12px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                    Click any component to preview it live and copy the code instantly.
+                </p>
+                <button class="btn-primary" style="margin-top: 24px;" onclick="window.location.href='index.html'">Browse
+                    All Components</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="copy-toast" class="toast">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        Code copied to clipboard!
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <script>
+        // Anime.js entrance animations for exhibits page
+        anime({
+            targets: '.navbar',
+            translateY: [-30, 0],
+            opacity: [0, 1],
+            duration: 1000,
+            easing: 'easeOutCubic'
+        });
+
+        anime({
+            targets: '.headline',
+            translateY: [40, 0],
+            opacity: [0, 1],
+            duration: 1200,
+            delay: 200,
+            easing: 'easeOutExpo'
+        });
+
+        anime({
+            targets: '.subhead',
+            translateY: [20, 0],
+            opacity: [0, 1],
+            duration: 1000,
+            delay: 400,
+            easing: 'easeOutExpo'
+        });
+
+        anime({
+            targets: '.exhibit-card',
+            translateY: [50, 0],
+            opacity: [0, 1],
+            scale: [0.95, 1],
+            delay: anime.stagger(80, { start: 600 }),
+            duration: 900,
+            easing: 'easeOutBack'
+        });
+
+        // Typewriter for exhibits page
+        const exhibitTw = document.getElementById('exhibitTw');
+        if (exhibitTw) {
+            const phrases = ['npm install obsidian-ui', 'npx create-app@latest', 'git push origin main'];
+            let pi = 0, ci = 0, del = false;
+            function typeExhibit() {
+                const p = phrases[pi];
+                if (!del) {
+                    exhibitTw.textContent = p.slice(0, ++ci);
+                    if (ci === p.length) { del = true; setTimeout(typeExhibit, 1500); return; }
+                } else {
+                    exhibitTw.textContent = p.slice(0, --ci);
+                    if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; }
+                }
+                setTimeout(typeExhibit, del ? 40 : 80);
+            }
+            typeExhibit();
+        }
+    </script>
+</body>
+
+</html>

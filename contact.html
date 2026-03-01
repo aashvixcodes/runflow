@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - ObsidianUI Red Mix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <div class="island">
+
+            <header class="navbar">
+                <div class="nav-links">
+                    <a href="index.html" class="nav-item">Studio</a>
+                    <a href="exhibits.html" class="nav-item">Exhibits</a>
+                    <div class="logo-mark">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-crimson)">
+                            <path d="M12 2L2 12l10 10 10-10L12 2z" />
+                        </svg>
+                    </div>
+                    <a href="contact.html" class="nav-item active">Contact</a>
+                    <a href="#" class="nav-item">Docs</a>
+                </div>
+            </header>
+
+            <div class="hero">
+                <h1 class="headline">
+                    Get in <span class="text-accent">Touch</span>
+                </h1>
+                <p class="subhead">
+                    Let's craft the next beautiful experience together using high-end interactive components.
+                </p>
+            </div>
+
+            <!-- Centered Contact Form using Bento Card Style -->
+            <div style="display: flex; justify-content: center; width: 100%; margin-top: auto;">
+                <div class="bento-card card-surface-mid"
+                    style="width: 100%; max-width: 600px; padding: 3rem; cursor: default; height: auto;">
+                    <form style="width: 100%; display: flex; flex-direction: column; gap: 24px;">
+
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <label style="font-weight: 600; font-size: 0.95rem; color: var(--text-main);">Name</label>
+                            <input type="text" placeholder="John Doe"
+                                style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid var(--border-light); font-size: 1rem; font-family: 'Inter', sans-serif; background: #ffffff;">
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <label style="font-weight: 600; font-size: 0.95rem; color: var(--text-main);">Email</label>
+                            <input type="email" placeholder="john@example.com"
+                                style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid var(--border-light); font-size: 1rem; font-family: 'Inter', sans-serif; background: #ffffff;">
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <label
+                                style="font-weight: 600; font-size: 0.95rem; color: var(--text-main);">Message</label>
+                            <textarea placeholder="Tell us about your project..." rows="4"
+                                style="width: 100%; padding: 16px; border-radius: 16px; border: 1px solid var(--border-light); font-size: 1rem; font-family: 'Inter', sans-serif; background: #ffffff; resize: none;"></textarea>
+                        </div>
+
+                        <button type="button" class="btn-primary" style="margin-top: 10px;">Send Transmission</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
