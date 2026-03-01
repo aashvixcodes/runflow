@@ -14,7 +14,7 @@
     <style>
         /* Generator-specific styles */
         .gen-page {
-            padding: 40px 0 60px;
+            padding: 20px 0 60px;
             width: 100%;
         }
 
@@ -353,11 +353,11 @@
                 </div>
             </header>
 
-            <div class="hero" style="padding-bottom: 1rem;">
-                <h1 class="headline">
+            <div class="hero" style="padding-bottom: 0; padding-top: 20px; min-height: auto;">
+                <h1 class="headline" style="font-size: 3rem;">
                     Generate <span class="text-accent">Components</span>
                 </h1>
-                <p class="subhead">
+                <p class="subhead" style="margin-bottom: 0;">
                     Describe what you want, pick a type, customize the style — get production-ready code instantly.
                 </p>
             </div>
@@ -678,22 +678,24 @@
             selectedColor = sw.dataset.color;
         });
 
-        // Suggestion chips
+        // Suggestion chips — auto-detect type AND auto-generate
         document.querySelectorAll('.chip').forEach(chip => {
             chip.addEventListener('click', () => {
                 promptInput.value = chip.dataset.prompt;
-                // Auto-detect type from prompt
+                // Auto-detect type from the chip prompt
                 const prompt = chip.dataset.prompt.toLowerCase();
-                if (prompt.includes('button') || prompt.includes('cta')) selectType('button');
-                else if (prompt.includes('card') || prompt.includes('pricing')) selectType('card');
+                if (prompt.includes('card') || prompt.includes('pricing')) selectType('card');
                 else if (prompt.includes('badge') || prompt.includes('status')) selectType('badge');
                 else if (prompt.includes('toggle') || prompt.includes('switch')) selectType('toggle');
                 else if (prompt.includes('input') || prompt.includes('field')) selectType('input');
                 else if (prompt.includes('skeleton') || prompt.includes('loading')) selectType('loader');
                 else if (prompt.includes('progress') || prompt.includes('bar')) selectType('progress');
                 else if (prompt.includes('toast') || prompt.includes('notification')) selectType('toast');
+                else if (prompt.includes('button') || prompt.includes('cta')) selectType('button');
 
                 anime({ targets: chip, scale: [1, 0.9, 1], duration: 300, easing: 'easeOutQuad' });
+                // Auto-generate immediately
+                setTimeout(generate, 150);
             });
         });
 
@@ -704,17 +706,17 @@
             });
         }
 
-        // Auto-detect type from prompt text
+        // Auto-detect type from prompt text (more specific matches first to avoid collisions)
         function detectType(prompt) {
             const p = prompt.toLowerCase();
-            if (p.includes('button') || p.includes('cta') || p.includes('btn')) return 'button';
             if (p.includes('card') || p.includes('pricing') || p.includes('plan')) return 'card';
-            if (p.includes('badge') || p.includes('status') || p.includes('label')) return 'badge';
             if (p.includes('toggle') || p.includes('switch')) return 'toggle';
-            if (p.includes('input') || p.includes('field') || p.includes('email') || p.includes('form')) return 'input';
             if (p.includes('skeleton') || p.includes('loading') || p.includes('shimmer')) return 'loader';
-            if (p.includes('progress') || p.includes('bar') || p.includes('%')) return 'progress';
+            if (p.includes('progress')) return 'progress';
             if (p.includes('toast') || p.includes('notification') || p.includes('alert')) return 'toast';
+            if (p.includes('badge') || p.includes('status') || p.includes('label')) return 'badge';
+            if (p.includes('input') || p.includes('field') || p.includes('email') || p.includes('form')) return 'input';
+            if (p.includes('button') || p.includes('cta') || p.includes('btn')) return 'button';
             return null;
         }
 
