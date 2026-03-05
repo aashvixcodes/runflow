@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/ThemeProvider";
-import NotificationDropdown from "@/components/ui/NotificationDropdown";
 
 const navItems = [
     { href: "/", label: "Studio" },
@@ -54,9 +53,6 @@ export default function Navbar() {
                         {item.label}
                     </Link>
                 ))}
-
-                {/* Notifications */}
-                <NotificationDropdown />
 
                 {/* Dark Mode Toggle */}
                 <button
