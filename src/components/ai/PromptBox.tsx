@@ -13,10 +13,11 @@ const modelOptions: { value: ModelType; label: string; description: string }[] =
 interface PromptBoxProps {
     onGenerate: (prompt: string, model: ModelType, image?: string) => void;
     isLoading: boolean;
+    initialPrompt?: string;
 }
 
-export default function PromptBox({ onGenerate, isLoading }: PromptBoxProps) {
-    const [prompt, setPrompt] = useState("");
+export default function PromptBox({ onGenerate, isLoading, initialPrompt = "" }: PromptBoxProps) {
+    const [prompt, setPrompt] = useState(initialPrompt);
     const [model, setModel] = useState<ModelType>("gemini-flash");
     const [fileName, setFileName] = useState<string | null>(null);
     const [imageBase64, setImageBase64] = useState<string | null>(null);
@@ -54,7 +55,7 @@ export default function PromptBox({ onGenerate, isLoading }: PromptBoxProps) {
                     onChange={(e) => setPrompt(e.target.value)}
                     placeholder="Describe the component you want to generate..."
                     rows={4}
-                    className="w-full p-5 rounded-2xl border border-border-light bg-white text-text-main text-base font-sans resize-none focus:outline-none focus:border-accent-crimson focus:shadow-[0_0_20px_rgba(225,29,72,0.1)] transition-all duration-300 placeholder:text-text-muted/50"
+                    className="w-full p-5 rounded-2xl border border-border-light bg-bg-island text-text-main text-base font-sans resize-none focus:outline-none focus:border-accent-crimson focus:shadow-[0_0_20px_rgba(225,29,72,0.1)] transition-all duration-300 placeholder:text-text-muted/50"
                     onKeyDown={(e) => {
                         if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
                             handleSubmit();
@@ -73,7 +74,7 @@ export default function PromptBox({ onGenerate, isLoading }: PromptBoxProps) {
                     <select
                         value={model}
                         onChange={(e) => setModel(e.target.value as ModelType)}
-                        className="w-full appearance-none p-3.5 pl-4 pr-10 rounded-xl border border-border-light bg-white text-text-main text-sm font-semibold cursor-pointer focus:outline-none focus:border-accent-crimson transition-all duration-200"
+                        className="w-full appearance-none p-3.5 pl-4 pr-10 rounded-xl border border-border-light bg-bg-island text-text-main text-sm font-semibold cursor-pointer focus:outline-none focus:border-accent-crimson transition-all duration-200"
                     >
                         {modelOptions.map((opt) => (
                             <option key={opt.value} value={opt.value}>
@@ -89,7 +90,7 @@ export default function PromptBox({ onGenerate, isLoading }: PromptBoxProps) {
                 {/* File Upload */}
                 <button
                     onClick={() => fileInputRef.current?.click()}
-                    className="flex items-center gap-2 px-4 py-3.5 rounded-xl border border-border-light bg-white text-text-main text-sm font-semibold cursor-pointer hover:border-accent-crimson hover:bg-surface-light transition-all duration-200"
+                    className="flex items-center gap-2 px-4 py-3.5 rounded-xl border border-border-light bg-bg-island text-text-main text-sm font-semibold cursor-pointer hover:border-accent-crimson hover:bg-surface-light transition-all duration-200"
                 >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />

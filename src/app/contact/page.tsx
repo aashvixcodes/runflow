@@ -37,7 +37,7 @@ export default function ContactPage() {
                             <input
                                 type="text"
                                 placeholder="John Doe"
-                                className="w-full p-4 rounded-2xl border border-border-light text-base font-sans bg-white focus:outline-none focus:border-accent-crimson focus:shadow-[0_0_15px_rgba(225,29,72,0.15)] transition-all duration-300"
+                                className="w-full p-4 rounded-2xl border border-border-light text-base font-sans bg-bg-island focus:outline-none focus:border-accent-crimson focus:shadow-[0_0_15px_rgba(225,29,72,0.15)] transition-all duration-300"
                             />
                         </div>
 
@@ -46,7 +46,7 @@ export default function ContactPage() {
                             <input
                                 type="email"
                                 placeholder="john@example.com"
-                                className="w-full p-4 rounded-2xl border border-border-light text-base font-sans bg-white focus:outline-none focus:border-accent-crimson focus:shadow-[0_0_15px_rgba(225,29,72,0.15)] transition-all duration-300"
+                                className="w-full p-4 rounded-2xl border border-border-light text-base font-sans bg-bg-island focus:outline-none focus:border-accent-crimson focus:shadow-[0_0_15px_rgba(225,29,72,0.15)] transition-all duration-300"
                             />
                         </div>
 
@@ -55,7 +55,7 @@ export default function ContactPage() {
                             <textarea
                                 placeholder="Tell us about your project..."
                                 rows={4}
-                                className="w-full p-4 rounded-2xl border border-border-light text-base font-sans bg-white resize-none focus:outline-none focus:border-accent-crimson focus:shadow-[0_0_15px_rgba(225,29,72,0.15)] transition-all duration-300"
+                                className="w-full p-4 rounded-2xl border border-border-light text-base font-sans bg-bg-island resize-none focus:outline-none focus:border-accent-crimson focus:shadow-[0_0_15px_rgba(225,29,72,0.15)] transition-all duration-300"
                             />
                         </div>
 

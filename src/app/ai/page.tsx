@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSearchParams } from "next/navigation";
+import { Sparkles } from "lucide-react";
 import PromptBox from "@/components/ai/PromptBox";
 import CodeViewer from "@/components/ai/CodeViewer";
 import type { ModelType, AIResponse, AIError } from "@/lib/ai/providers";
+import { codeDictionary, componentNames } from "@/lib/componentData";
 
 const examplePrompts = [
     "Create a pricing card with gradient border and hover glow effect",
@@ -15,7 +18,17 @@ const examplePrompts = [
     "Create a file upload dropzone with drag-and-drop support",
 ];
 
-export default function AIPage() {
+function AIContent() {
+    const searchParams = useSearchParams();
+    const componentId = searchParams.get("component");
+
+    // Determine the initial prompt if a component was passed
+    let initialPrompt = "";
+    if (componentId && codeDictionary[componentId]) {
+        const name = componentNames[componentId] || "Component";
+        initialPrompt = `I am tweaking the "${name}". Here is its current code:\n\n\`\`\`html\n${codeDictionary[componentId]}\n\`\`\`\n\nPlease modify it to: [Your tweak here]`;
+    }
+
     const [isLoading, setIsLoading] = useState(false);
     const [generatedCode, setGeneratedCode] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -103,7 +116,11 @@ export default function AIPage() {
                 className="w-full max-w-[800px] mx-auto space-y-8"
             >
                 {/* Prompt Box */}
-                <PromptBox onGenerate={handleGenerate} isLoading={isLoading} />
+                <PromptBox
+                    onGenerate={handleGenerate}
+                    isLoading={isLoading}
+                    initialPrompt={initialPrompt}
+                />
 
                 {/* Example Prompts */}
                 <div>
@@ -116,7 +133,7 @@ export default function AIPage() {
                                 key={prompt}
                                 onClick={() => handleExampleClick(prompt)}
                                 disabled={isLoading}
-                                className="px-3.5 py-2 rounded-xl border border-border-light bg-white text-[0.8rem] font-medium text-text-muted hover:text-accent-crimson hover:border-[rgba(225,29,72,0.3)] hover:bg-[rgba(225,29,72,0.03)] transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-left"
+                                className="px-3.5 py-2 rounded-xl border border-border-light bg-bg-island text-[0.8rem] font-medium text-text-muted hover:text-accent-crimson hover:border-[rgba(225,29,72,0.3)] hover:bg-[rgba(225,29,72,0.03)] transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-left"
                             >
                                 {prompt}
                             </button>
@@ -124,23 +141,59 @@ export default function AIPage() {
                     </div>
                 </div>
 
-                {/* Loading State */}
+                {/* Loading State - Ghost Loading */}
                 <AnimatePresence>
                     {isLoading && (
                         <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            className="flex flex-col items-center justify-center py-16 gap-4"
+                            initial={{ opacity: 0, scale: 0.98 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.98 }}
+                            className="w-full space-y-6"
                         >
-                            <div className="relative w-16 h-16">
-                                <div className="absolute inset-0 rounded-full border-2 border-border-light" />
-                                <div className="absolute inset-0 rounded-full border-2 border-accent-crimson border-t-transparent animate-spin" />
-                                <div className="absolute inset-2 rounded-full border-2 border-accent-crimson/30 border-b-transparent animate-spin" style={{ animationDirection: "reverse", animationDuration: "1.5s" }} />
+                            {/* Header Skeleton */}
+                            <div className="flex items-center gap-4 border-b border-border-light pb-4">
+                                <div className="w-10 h-10 rounded-xl bg-surface-dark animate-pulse" />
+                                <div className="space-y-2">
+                                    <div className="w-32 h-4 bg-surface-dark rounded animate-pulse" />
+                                    <div className="w-48 h-3 bg-surface-dark/50 rounded animate-pulse" />
+                                </div>
                             </div>
-                            <div className="text-center">
-                                <p className="text-sm font-semibold text-text-main">Generating your component...</p>
-                                <p className="text-xs text-text-muted mt-1">This may take a few seconds</p>
+
+                            {/* Main Preview Skeleton */}
+                            <div className="relative overflow-hidden rounded-[2rem] border border-border-light/30 bg-surface-dark/30 aspect-video md:aspect-[21/9] flex flex-col p-8">
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent -translate-x-full animate-[shimmer_2s_infinite] shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]" />
+
+                                <div className="mt-auto flex justify-between items-end">
+                                    <div className="space-y-3">
+                                        <div className="w-40 h-6 bg-surface-dark rounded-lg animate-pulse" />
+                                        <div className="w-64 h-4 bg-surface-dark/50 rounded-lg animate-pulse" />
+                                    </div>
+                                    <div className="w-12 h-12 rounded-full bg-surface-dark animate-pulse" />
+                                </div>
+
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <div className="flex flex-col items-center gap-3">
+                                        <div className="w-14 h-14 rounded-2xl bg-accent-crimson/10 border border-accent-crimson/20 flex items-center justify-center animate-bounce">
+                                            <Sparkles className="w-7 h-7 text-accent-crimson" />
+                                        </div>
+                                        <p className="text-sm font-bold text-text-main animate-pulse tracking-wide">Synthesizing Component...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Code Skeleton */}
+                            <div className="rounded-2xl border border-border-light/30 bg-[#09090b] p-6 space-y-4">
+                                <div className="flex gap-2">
+                                    <div className="w-3 h-3 rounded-full bg-surface-dark" />
+                                    <div className="w-3 h-3 rounded-full bg-surface-dark" />
+                                    <div className="w-3 h-3 rounded-full bg-surface-dark" />
+                                </div>
+                                <div className="space-y-3 pt-2">
+                                    <div className="w-[85%] h-3 bg-surface-dark/40 rounded animate-pulse" />
+                                    <div className="w-[70%] h-3 bg-surface-dark/40 rounded animate-pulse" />
+                                    <div className="w-[90%] h-3 bg-surface-dark/40 rounded animate-pulse" />
+                                    <div className="w-[45%] h-3 bg-surface-dark/40 rounded animate-pulse" />
+                                </div>
                             </div>
                         </motion.div>
                     )}
@@ -198,13 +251,18 @@ export default function AIPage() {
                             </svg>
                         </div>
                         <p className="text-sm font-semibold text-text-main">No component generated yet</p>
-                        <p className="text-xs text-text-muted mt-1">Enter a prompt above or click an example to get started</p>
+                        <p className="text-xs text-text-muted mt-1">Enter a prompt above to get started</p>
                     </motion.div>
                 )}
             </motion.div>
-
-            {/* Bottom Spacer */}
-            <div className="pb-10" />
         </>
+    );
+}
+
+export default function AIPage() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-text-main">Loading AI Editor...</div>}>
+            <AIContent />
+        </Suspense>
     );
 }

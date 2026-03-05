@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { ToastProvider, useToast } from "@/components/Toast";
-import ComponentModal from "@/components/ComponentModal";
 import { codeDictionary, componentNames } from "@/lib/componentData";
 
 function BentoCard({
@@ -21,8 +21,6 @@ function BentoCard({
   children: React.ReactNode;
   className?: string;
 }) {
-  const [modalOpen, setModalOpen] = useState(false);
-
   const surfaceClasses = {
     dark: "bg-surface-dark border border-white/5",
     light: "bg-surface-light border border-border-light",
@@ -35,43 +33,36 @@ function BentoCard({
   };
 
   return (
-    <>
+    <Link href={`/docs/${codeId}`} className="contents">
       <motion.div
         id={id}
         initial={{ y: 60, opacity: 0, scale: 0.92 }}
         animate={{ y: 0, opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         whileHover={{ scale: 1.02, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)" }}
-        onClick={() => setModalOpen(true)}
-        className={`rounded-[var(--radius-bento)] relative overflow-hidden cursor-pointer flex items-center justify-center transition-all group ${surfaceClasses[surface]} ${sizeClasses[size]} ${className}`}
+        className={`rounded-[var(--radius-bento)] relative overflow-hidden flex items-center justify-center transition-all group ${surfaceClasses[surface]} ${sizeClasses[size]} ${className}`}
       >
         <div className="relative z-[2] w-full h-full flex justify-center items-center group-hover:-translate-y-1.5 transition-transform duration-300">
           {children}
         </div>
 
         {/* Label Pill */}
-        <div className="absolute bottom-6 left-6 px-[18px] py-2.5 rounded-full text-[0.9rem] font-semibold z-20 bg-white text-text-main shadow-[0_4px_10px_rgba(0,0,0,0.05)] pointer-events-none group-hover:-translate-y-1 transition-transform duration-300">
+        <div className="absolute bottom-6 left-6 px-[18px] py-2.5 rounded-full text-[0.9rem] font-semibold z-20 bg-bg-page text-text-main border border-border-light shadow-[0_4px_10px_rgba(0,0,0,0.05)] pointer-events-none group-hover:-translate-y-1 transition-transform duration-300">
           {componentNames[codeId] || codeId}
         </div>
 
-        {/* Copy Overlay */}
-        <div className="absolute inset-0 bg-black/70 backdrop-blur-[8px] flex flex-col justify-center items-center gap-3 text-white opacity-0 z-50 group-hover:opacity-100 transition-opacity duration-300">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+        {/* View Docs Overlay */}
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-[8px] flex flex-col justify-center items-center gap-3 text-white opacity-0 z-50 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer">
+          <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
           </svg>
-          <span className="text-lg font-bold">Copy Code</span>
+          <span className="text-lg font-bold">View Docs</span>
         </div>
       </motion.div>
-
-      <ComponentModal
-        isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
-        codeId={codeId}
-      />
-    </>
+    </Link>
   );
 }
+
 
 /* --- Individual Component Previews --- */
 
@@ -106,7 +97,7 @@ function VelvetPass() {
       </div>
       <div className="flex justify-between items-end z-[2]">
         <div className="font-mono text-[1.2rem] tracking-[2px] text-[#fecdd3]">0042</div>
-        <div className="text-[0.75rem] uppercase font-bold bg-white/20 px-2 py-1 rounded-md text-white">Active</div>
+        <div className="text-[0.75rem] uppercase font-bold bg-bg-island/20 px-2 py-1 rounded-md text-text-main">Active</div>
       </div>
       <div className="hologram group-hover:opacity-100" />
     </div>
@@ -115,7 +106,7 @@ function VelvetPass() {
 
 function SonarButton() {
   return (
-    <button className="sonar-btn relative bg-text-main text-white border-none px-9 py-[18px] rounded-full text-[1.05rem] font-bold cursor-pointer z-10 shadow-[0_10px_20px_rgba(0,0,0,0.15)] hover:scale-105 transition-transform font-sans">
+    <button className="sonar-btn relative bg-text-main text-bg-page border-none px-9 py-[18px] rounded-full text-[1.05rem] font-bold cursor-pointer z-10 shadow-[0_10px_20px_rgba(0,0,0,0.15)] hover:scale-105 transition-transform font-sans">
       Deploy Module
       <span className="sonar-ripple ripple-1" />
       <span className="sonar-ripple ripple-2" />
@@ -138,9 +129,9 @@ function PremiumSwitch() {
   return (
     <div
       onClick={() => setActive(!active)}
-      className={`w-[140px] h-[60px] rounded-full relative flex justify-between items-center px-3.5 cursor-pointer shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] transition-colors duration-300 ${active ? "bg-accent-crimson" : "bg-[#e4e4e7]"}`}
+      className={`w-[140px] h-[60px] rounded-full relative flex justify-between items-center px-3.5 cursor-pointer shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)] transition-colors duration-300 ${active ? "bg-accent-crimson" : "bg-border-light"}`}
     >
-      <div className={`absolute w-[52px] h-[52px] bg-white rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.1)] left-1 top-1 transition-transform duration-[0.4s] z-[3] ${active ? "translate-x-[80px]" : ""}`} style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }} />
+      <div className={`absolute w-[52px] h-[52px] bg-bg-island rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.1)] left-1 top-1 transition-transform duration-[0.4s] z-[3] ${active ? "translate-x-[80px]" : ""}`} style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }} />
       <span className="font-bold text-white z-[2] ml-3 text-[0.9rem]">ON</span>
       <span className="font-bold text-[#52525b] z-[2] mr-3 text-[0.9rem]">OFF</span>
     </div>
@@ -173,10 +164,10 @@ function AvatarRing() {
 function GlassTooltip() {
   return (
     <div className="relative inline-block group/tooltip">
-      <button className="bg-white border border-border-light px-6 py-3 rounded-full font-semibold cursor-pointer text-text-main font-sans">
+      <button className="bg-bg-island border border-border-light px-6 py-3 rounded-full font-semibold cursor-pointer text-text-main font-sans">
         Hover Me
       </button>
-      <div className="absolute bottom-[calc(100%+12px)] left-1/2 -translate-x-1/2 translate-y-2.5 bg-white/90 backdrop-blur-[12px] border border-border-light text-text-main px-4 py-2.5 rounded-lg text-[0.85rem] font-semibold whitespace-nowrap opacity-0 pointer-events-none shadow-[0_10px_20px_rgba(0,0,0,0.05)] transition-all duration-200 group-hover/tooltip:opacity-100 group-hover/tooltip:translate-y-0" style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}>
+      <div className="absolute bottom-[calc(100%+12px)] left-1/2 -translate-x-1/2 translate-y-2.5 bg-bg-island/90 backdrop-blur-[12px] border border-border-light text-text-main px-4 py-2.5 rounded-lg text-[0.85rem] font-semibold whitespace-nowrap opacity-0 pointer-events-none shadow-[0_10px_20px_rgba(0,0,0,0.05)] transition-all duration-200 group-hover/tooltip:opacity-100 group-hover/tooltip:translate-y-0" style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}>
         View full details
       </div>
     </div>
@@ -195,7 +186,7 @@ function CyberBadge() {
 function ProgressBar() {
   return (
     <div className="w-full px-8">
-      <div className="w-full h-2 bg-[#e4e4e7] rounded-full overflow-hidden relative">
+      <div className="w-full h-2 bg-border-light rounded-full overflow-hidden relative">
         <div className="absolute left-0 top-0 h-full w-[65%] bg-accent-crimson rounded-full transition-[width] duration-1000" />
       </div>
     </div>
@@ -204,7 +195,7 @@ function ProgressBar() {
 
 function MinimalAccordion() {
   return (
-    <div className="w-[70%] bg-white border border-border-light rounded-2xl px-5 py-4 flex justify-between items-center font-semibold cursor-pointer text-text-main hover:bg-surface-light transition-colors group/acc">
+    <div className="w-[70%] bg-bg-island border border-border-light rounded-2xl px-5 py-4 flex justify-between items-center font-semibold cursor-pointer text-text-main hover:bg-surface-light transition-colors group/acc">
       <span>Module Settings</span>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover/acc:rotate-180" style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}>
         <polyline points="6 9 12 15 18 9" />
@@ -258,7 +249,7 @@ function SpotlightCard() {
 
 function GlassDock() {
   return (
-    <div className="flex items-end gap-1 bg-white/10 backdrop-blur-[20px] border border-white/15 rounded-[20px] px-3.5 py-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
+    <div className="flex items-end gap-1 bg-bg-island/10 backdrop-blur-[20px] border border-bg-island/15 rounded-[20px] px-3.5 py-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.08)]">
       {[
         { emoji: "🏠", label: "Home" },
         { emoji: "🔍", label: "Search" },
@@ -266,7 +257,7 @@ function GlassDock() {
         { emoji: "👤", label: "Profile" },
         { emoji: "☰", label: "Menu" },
       ].map((item) => (
-        <div key={item.label} data-label={item.label} className="dock-icon w-11 h-11 flex items-center justify-center text-[1.4rem] rounded-xl bg-white/5 cursor-pointer relative transition-all duration-300 hover:-translate-y-3 hover:scale-[1.35] hover:bg-white/20 hover:shadow-[0_8px_20px_rgba(0,0,0,0.12)]" style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}>
+        <div key={item.label} data-label={item.label} className="dock-icon w-11 h-11 flex items-center justify-center text-[1.4rem] rounded-xl bg-bg-island/5 cursor-pointer relative transition-all duration-300 hover:-translate-y-3 hover:scale-[1.35] hover:bg-bg-island/20 hover:shadow-[0_8px_20px_rgba(0,0,0,0.12)]" style={{ transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)" }}>
           {item.emoji}
         </div>
       ))}
@@ -308,7 +299,7 @@ function TiltCard() {
 
 function TypewriterEffect() {
   const [text, setText] = useState("");
-  const phrases = useRef(["npm install obsidian-ui", "npx create-app@latest", "git push origin main"]);
+  const phrases = useRef(["npm install runflow-ui", "npx create-app@latest", "git push origin main"]);
 
   useEffect(() => {
     let phraseIdx = 0, charIdx = 0, isDeleting = false;
@@ -364,7 +355,7 @@ function StudioContent() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="text-[1.25rem] font-medium text-text-muted leading-relaxed max-w-[650px] mb-10 tracking-[-0.01em]"
         >
-          Spend less time designing and tweaking UI, and more time shipping reliable, visually refined interfaces.
+          A modern interactive component library powered by AI customization.
         </motion.p>
 
         <motion.div
@@ -373,17 +364,16 @@ function StudioContent() {
           transition={{ duration: 0.6, delay: 0.6 }}
           className="flex gap-4 items-center"
         >
-          <button className="bg-text-main text-white border-none px-9 py-[18px] rounded-full text-[1.05rem] font-semibold cursor-pointer hover:scale-105 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] transition-all duration-200">
+          <Link href="/components" className="bg-text-main text-bg-page border-none px-9 py-[18px] rounded-full text-[1.05rem] font-semibold cursor-pointer hover:scale-105 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.3)] transition-all duration-200 no-underline">
             Browse Components
-          </button>
-          <div className="flex items-center gap-3 bg-surface-light border border-border-light px-5 py-4 rounded-2xl text-text-muted text-base font-medium">
-            <svg width="18" height="18" fill="none">
+          </Link>
+          <Link href="/docs" className="flex items-center gap-3 bg-surface-light border border-border-light px-5 py-4 rounded-2xl text-text-muted text-base font-medium hover:border-[rgba(225,29,72,0.3)] hover:text-text-main transition-all duration-200 no-underline cursor-pointer group">
+            <svg width="18" height="18" fill="none" className="group-hover:text-accent-crimson transition-colors duration-200">
               <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" />
               <path d="M12 12L17 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
-            <span>Search components</span>
-            <div className="bg-white border border-border-light rounded-md px-2 py-1 text-[0.8rem] font-semibold ml-5 text-text-muted">⌘ + /</div>
-          </div>
+            <span>View Documentation</span>
+          </Link>
         </motion.div>
       </motion.div>
 

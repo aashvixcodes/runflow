@@ -40,10 +40,10 @@ export async function POST(req: NextRequest) {
 
         switch (body.model) {
             case "gemini-flash":
-                code = await generateWithGemini(body.prompt, body.image, "gemini-1.5-flash");
+                code = await generateWithGemini(body.prompt, body.image, "gemini-2.5-flash");
                 break;
             case "gemini-pro":
-                code = await generateWithGemini(body.prompt, body.image, "gemini-1.5-pro");
+                code = await generateWithGemini(body.prompt, body.image, "gemini-2.5-pro-preview-05-06");
                 break;
             case "openai":
                 code = await generateWithOpenAI(body.prompt, body.image);
