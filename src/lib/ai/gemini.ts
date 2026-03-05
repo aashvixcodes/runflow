@@ -24,7 +24,7 @@ const safetySettings = [
 export async function generateWithGemini(
     prompt: string,
     image?: string,
-    modelVariant: "gemini-1.5-flash" | "gemini-1.5-pro" = "gemini-1.5-flash"
+    modelVariant: "gemini-2.5-flash" | "gemini-2.5-pro-preview-05-06" = "gemini-2.5-flash"
 ): Promise<string> {
     const client = getClient();
     const model = client.getGenerativeModel({
